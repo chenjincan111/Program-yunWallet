@@ -1,0 +1,45 @@
+
+
+.quickstart {
+    margin-top: -15px;
+    background-color: #F5F5F5;
+    background-image: linear-gradient(#F9F9F9, #F5F5F5);
+    background-repeat: repeat-x;
+    border-bottom: 1px solid #EEEEEE;
+    border-top: 1px solid #FFFFFF;
+}
+
+h1 {
+    font-size: 22px;
+}
+h2 {
+    font-size: 20px;
+}
+h3 {
+    font-size: 16px;
+}
+h4 {
+    font-size: 14px;
+}
+
+.starter-template { 
+    padding: 35px 15px;
+    text-align: left;
+}
+.logo {
+    float: left;
+    height: 40px;
+    margin-right: 10px;
+    overflow: visible;
+    padding-top: 3px;
+    z-index: 1;
+}
+
+.navbar-inverse {
+    background-color: #000033;
+    border-color: #080808;
+}
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+    background-color: #003366;
+    color: #FFFFFF;
+}
