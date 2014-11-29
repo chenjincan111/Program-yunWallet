@@ -28,7 +28,7 @@ public class MemberServiceImpl {
 		m.setEmail("sda");
 		m.setPassWord("123456");
 		m.setVcode("ff");
-		//memberDao.save(m);
+		memberDao.save(m);
 		return "";
 	}
 	

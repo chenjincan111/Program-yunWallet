@@ -20,7 +20,7 @@ import cn.demo.model.Member;
 public class MemberDaoTest {
 
 	@Autowired
-	private MemberDao memberDao;
+	private MemberDao memberDao; 
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -29,33 +29,35 @@ public class MemberDaoTest {
 	@Test
 	public void testSave() {
 		Member m = new Member();
-		m.setEmail("sda");
-		m.setPassWord("123456");
+		m.setmId(882);
+		m.setEmail("sda2");
+		m.setPassWord("1234562");
 		m.setVcode("ff");
-		memberDao.save(m);
+		memberDao.saveOrUpdate(m);
 	}
 
 	@Test
 	public void testUpdate() {
-		Member member = memberDao.getById(880);
+		Member member = memberDao.get(882);
 		member.setEmail("haha");
 		memberDao.update(member);
 	}
 
 	@Test
 	public void testDelete() {
-		memberDao.delete(880);
+		Member member = memberDao.get(880);
+		memberDao.delete(member);
 	}
 
 	@Test
 	public void testGetById() {
-		Member member = memberDao.getById(880);
+		Member member = memberDao.get(882);
 		System.out.println(member.getEmail());
 	}
 
 	@Test
 	public void testFindAll() {
-		fail("Not yet implemented");
+		System.out.println(memberDao.loadAll());
 	}
 
 }
