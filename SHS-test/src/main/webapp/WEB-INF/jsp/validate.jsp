@@ -64,7 +64,7 @@ body {
 			</div>
 
 			<div class="form-horizontal">
-				<form id="frm" method="post" action="${path}/validate">
+				<form id="frm" method="post" action="${path}/validate" onsubmit="return check();">
 					<div class="control-group">
 						<label class="control-label">用户名:</label>
 						<div class="controls">
@@ -105,5 +105,23 @@ body {
 	<script src="${path}/bootstrap/js/bootstrap-collapse.js"></script>
 	<script src="${path}/bootstrap/js/bootstrap-carousel.js"></script>
 	<script src="${path}/bootstrap/js/bootstrap-typeahead.js"></script>
+	
+	<script type="text/javascript">
+		function check() {
+			var userName = $("#userName").val();
+			var vcode = $("#vcode").val();
+
+			if (userName == '' ) {
+				alert("用户不能为空！");
+				$("#userName").focus();
+				return false;
+			}
+			if (vcode == '' ) {
+				alert("验证码不能为空！");
+				$("#vcode").focus();
+				return false;
+			}
+		}	
+	</script>
 </body>
 </html>

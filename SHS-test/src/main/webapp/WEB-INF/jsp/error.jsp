@@ -63,7 +63,7 @@ body {
         <a class="close" href="#">&times;</a>
         <p>
             <strong>ERROR!</strong><br />
-            WARNING: ${msg },<a href="#" onclick="javascript:history.go(-1)">点击返回</a></b>
+            WARNING: ${msg },<a href="javascript:void(0)" onclick="javascript:history.go(-1)">点击返回</a></b>
         </p>
     </div>
 

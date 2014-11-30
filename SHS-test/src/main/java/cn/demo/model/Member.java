@@ -20,13 +20,11 @@ public class Member implements java.io.Serializable {
 	private int mId;//id
 	private String userName;
 	private String passWord;
-	private String rpassWord;
 	private String email;
 	private String tel;
 	private String registTime;//注册时间
 	private Date lastLogin;//最后登录时间
 	private String vcode;
-	private String captcha;//验证码
 	private boolean validated;//是否激活
 
 	@Id
@@ -101,24 +99,6 @@ public class Member implements java.io.Serializable {
 
 	public void setVcode(String vcode) {
 		this.vcode = vcode;
-	}
-
-	@Transient
-	public String getRpassWord() {
-		return rpassWord;
-	}
-
-	public void setRpassWord(String rpassWord) {
-		this.rpassWord = rpassWord;
-	}
-
-	@Transient
-	public String getCaptcha() {
-		return captcha;
-	}
-
-	public void setCaptcha(String captcha) {
-		this.captcha = captcha;
 	}
 
 	@Column(name = "validated")

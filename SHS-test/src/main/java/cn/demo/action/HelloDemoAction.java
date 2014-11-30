@@ -16,10 +16,9 @@ public class HelloDemoAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	@Action(value="hello",results={@Result(name="success",location="/login.jsp")})
+	@Action(value="hello",results={@Result(name="succes",location="/login.jsp")})
 	public String execute() throws Exception {
-		System.out.println("aa");
-		return super.execute();
+		return "as";
 	}
 	
 }
