@@ -59,18 +59,11 @@ body {
 		<div class="span6">
 			<div class="page-header">
 				<h3>Wallet Address List</h3>
-				<small>
-					<input id="id_text" name="chAddress" style="color:#C0C0C0" type="text" value="输入Address的模糊查询" onclick="textChange1()" onblur="textChange2()" />
-					<select name="isLocked">
-						<option value="all" selected="selected">All</option>
-						<option value="true">true</option>	
-						<option value="false">false</option>		
-					</select>
-					<input style="vertical-align: top" type="button" value="search" />
-				</small>
+				<small>我的钱包地址列表:</small>
 			</div>
 			<table class="table table-striped" style="margin-top: -35px">
 				<tr>
+					<th>Pay</th>
 					<th>Address</th>
 					<th>amount</th>
 					<th>locked</th>
@@ -78,27 +71,14 @@ body {
 					<th>update</th>
 				</tr>
 				<c:forEach var="obj" items="${result.currentList}" varStatus="status">
-					<tr id="id_tr1_${status.index}" style="display:table-row">
-						<td><a
-							href='${path }/wallet_address?address=${obj.addressId }'><c:out
-									value="${obj.addressId }"></c:out></a></td>
-						<td><c:out value="${obj.amount }"></c:out></td>
-						<td><c:out value="${obj.locked }"></c:out></td>
+					<tr style="display: none;">
+					<td><a href='${path }/wallet_address?address=${obj.addressId }'>Go</a></td>
+					<td id="ID_${status.index}">
+						<c:out value="${obj.addressId }"></c:out></td>
+						<td id="Name_${status.index}"><c:out value="${obj.amount }"></c:out></td>
+						<td id="Telp_${status.index}"><c:out value="${obj.locked }"></c:out></td>
 						<td><a href="${path }/delete?address=${obj.addressId }"><button>删除</button></a></td>
-						<td><a href="#"><button onclick="change(${status.index})">修改</button></a></td>
-					</tr>
-					<tr id="id_tr2_${status.index}" style="display: none;">
-							
-							<td><input style="width:125px" id='address' type='input' name='address' value='${obj.addressId }' readonly=readonly></a></td>
-							<td><input style="width:125px" id='amount' type='input' name='amount' value='${obj.amount }'></td>
-							<!--  td><input style="width:125px" id='locked' type='input' name='locked' value='${obj.locked }'></td>-->
-							<td><select style="width:71px;height:24px;" id='locked' name='locked'>
-								<option value="true">true</option>
-								<option value="false">false</option>
-							</select></td>
-							<td><a href="${path }/delete?address=${obj.addressId }"><button>删除</button></a></td>
-							<td><a href="#"><button onclick="change(${status.index})">修改</button></a></td>
-					
+						<td><a href="#" id="modify_${status.index}" onclick="modify(${status.index})"><button>修改</button></a></td>
 					</tr>
 				</c:forEach>
 			</table>
@@ -124,37 +104,12 @@ body {
 	<!-- Le javascript
     ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
-	<script type="text/javascript">
 	
-		function textChange1(){
-			document.getElementById("id_text").value="";
-		}
-		function textChange2(){
-			if(document.getElementById("id_text").value=="")
-			    document.getElementById("id_text").value="输入Address的模糊查询";
-		}
-		
-		function change(num){
-			
-			var tr1 = "id_tr1_"+num;
-			var tr2 = "id_tr2_"+num;
-			var trs1 = document.getElementById(tr1).style.display;
-			var trs2 = document.getElementById(tr2).style.display;
-			if(trs1!="none"){
-				document.getElementById(tr1).style.display="none";
-				document.getElementById(tr2).style.display="table-row";
-			}else{
-				
-				var address = document.getElementById("address").value;
-				var locked = document.getElementById("locked").value;
-				var amount = document.getElementById("amount").value;
-				window.location.reload("/SHS-test/update?amount="+amount+"&locked="+locked+"&address="+address);
-			}
-		}
-	
-	</script>
-	
+	<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
 	<script src="${path}/bootstrap/js/jquery.js"></script>
+	
+	
+	<script src="${path}/bootstrap/js/other.js"></script>
 	<script src="${path}/bootstrap/js/bootstrap-transition.js"></script>
 	<script src="${path}/bootstrap/js/bootstrap-alert.js"></script>
 	<script src="${path}/bootstrap/js/bootstrap-modal.js"></script>

@@ -23,7 +23,6 @@ public class Wallet implements java.io.Serializable {
 	private boolean locked;
 
 	@Id
-	@GeneratedValue
 	@Column(name = "address_id")
 	public String getAddressId() {
 		return addressId;
@@ -77,6 +76,12 @@ public class Wallet implements java.io.Serializable {
 
 	public void setLocked(boolean locked) {
 		this.locked = locked;
+	}
+
+	@Override
+	public String toString() {
+		return "Wallet [addressId=" + addressId + ", memId=" + memId
+				+ ", amount=" + amount + ", locked=" + locked + "]";
 	}
 	
 	

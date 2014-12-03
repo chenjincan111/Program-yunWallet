@@ -94,7 +94,7 @@ body {
 				<c:forEach var="obj" items="${result.currentList}">
 					<tr>
 						<td><a
-							href='${path }/wallet/${result.currentPage }/${obj.addressId }'><c:out
+							href='${path }/wallet_address?address=${obj.addressId }'><c:out
 									value="${obj.addressId }"></c:out></a></td>
 						<td><c:out value="${obj.amount }"></c:out></td>
 						<td><c:out value="${obj.locked }"></c:out></td>
@@ -103,8 +103,8 @@ body {
 			</table>
 
 			<div>
-				<a href="${path }/wallet/${result.per }">上一页</a>|当前第${result.currentPage }页|共${result.allPage }页|<a
-					href="${path }/wallet/${result.next }">下一页</a>
+				<a href="${path }/wallet?currentPage=${result.per }">上一页</a>|当前第${result.currentPage }页|共${result.allPage }页|<a
+					href="${path }/wallet?currentPage=${result.next }">下一页</a>
 			</div>
 		</div>
 		<div class="span5">

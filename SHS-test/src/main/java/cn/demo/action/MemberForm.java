@@ -1,8 +1,5 @@
 package cn.demo.action;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
@@ -12,14 +9,6 @@ import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-//import org.springframework.web.servlet.ModelAndView;
-
-import org.springframework.web.servlet.ModelAndView;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -33,6 +22,10 @@ import cn.demo.util.MailUtils;
 @Namespace(value = "/")
 public class MemberForm extends ActionSupport {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Autowired
 	private MemberService memberService;
 	private String msg;
@@ -191,7 +184,7 @@ public class MemberForm extends ActionSupport {
 
 
 	@Action(value = "login", results = {
-			@Result(name = "success", location = "/WEB-INF/jsp/success.jsp"),
+			@Result(name = "success", location = "/wallet",type="redirectAction"),
 			@Result(name = "error", location = "/WEB-INF/jsp/error.jsp") })
 	public String login() {
 		String view = "error";
@@ -237,11 +230,20 @@ public class MemberForm extends ActionSupport {
 			System.out.println(msg);
 			return view;
 		}
+		ActionContext.getContext().getSession().put("LOGIN_USER", member);
 		view = "success";
 		msg = "登陆成功！！";
 		System.out.println(msg);
 
 		return view;
+	}
+	
+	@Action(value = "logout", results = {
+			@Result(name = "success", location = "/login.jsp")})
+	public String logout(){
+		
+		ActionContext.getContext().getSession().remove("LOGIN_USER");
+		return "success";
 	}
 
 	// @RequestMapping(value = "/logout", method = RequestMethod.GET)
