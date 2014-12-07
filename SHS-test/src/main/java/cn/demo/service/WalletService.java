@@ -43,6 +43,40 @@ public class WalletService {
 				currentPage, request.getMax());
 		return result;
 	}
+	/*
+	 * 模糊查询
+	 */
+	public PageResult<Wallet> pageResault1( Wallet search,int currentPage,String v,String x) {
+
+		if (currentPage == 0) {
+			currentPage = 1;
+		}
+		PageRequest<Wallet> request = null;
+		if(v.equals("input the address name")){
+			if(x.equals("2")){
+				request = new PageRequest<Wallet>(
+						currentPage, 5,"FROM Wallet WHERE memId = "+search.getMemId());
+			}else{
+				request = new PageRequest<Wallet>(
+						currentPage, 5,"FROM Wallet WHERE locked = "+x+"and memId = "+search.getMemId());
+			}
+		}else{
+			if(x.equals("2")){
+				request = new PageRequest<Wallet>(
+						currentPage, 5,"FROM Wallet WHERE addressId LIKE  '%"+ v +"%' and memId = "+search.getMemId());
+			}else{
+				request = new PageRequest<Wallet>(
+						currentPage, 5,"FROM Wallet WHERE addressId LIKE  '%"+ v +"%' and locked = "+x+"and memId = "+search.getMemId());
+			}
+		}
+		List<Wallet> list = walletDao.find(request.getHql(),
+				request.getOffset(), request.getMax());
+		int allPage = walletDao.getCount(request.getHql());
+		System.out.println(allPage);
+		PageResult<Wallet> result = new PageResult<Wallet>(list, allPage,
+				currentPage, request.getMax());
+		return result;
+	}
 	
 	/**
 	 * 新建钱包
@@ -61,7 +95,7 @@ public class WalletService {
 		wallet.setGenTime(new Date());
 		walletDao.save(wallet);
 		System.out.println("save wallet");
-		//logger.info("ID:" + memId + ",新建立钱包地址");
+		logger.info("ID:" + memId + ",新建立钱包地址");
 	}
 	
 	/**
@@ -71,9 +105,6 @@ public class WalletService {
 	 */
 	public void getWallet(int memId) {
 		List<Wallet> list = walletDao.find("from Wallet where memId=?", memId);
-//		if (list.size() >= 5) {
-//			return;
-//		}
 		Wallet wallet = new Wallet();
 		wallet.setAddressId(IDGenerator.generatorIdHex());
 		wallet.setAmount(0.00);
@@ -81,7 +112,7 @@ public class WalletService {
 		wallet.setGenTime(new Date());
 		walletDao.save(wallet);
 		System.out.println("save wallet");
-		//logger.info("ID:" + memId + ",新建立钱包地址");
+		logger.info("ID:" + memId + ",新建立钱包地址");
 	}
 
 	/**

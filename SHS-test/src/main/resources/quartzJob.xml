@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:compass="http://www.compass-project.org/schema/spring-core-config"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+	http://www.compass-project.org/schema/spring-core-config
+	http://www.compass-project.org/schema/spring-compass-core-config-2.0.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+	default-autowire="no">
+
+
+	<!-- =====================日常任务job========================== -->
+
+	<bean id="moneyInLog"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="paperOffice" />
+		</property>
+		<property name="targetMethod">  <!-- 要执行的方法名称 -->
+			<value>send</value>
+		</property>
+		<!-- 同时发生 -->
+		<property name="concurrent" value="false" />
+	</bean>
+
+	<!-- ======================== 调度触发器 ======================== -->
+	<bean id="moneyInLogTime" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="moneyInLog"></property>
+		<property name="cronExpression" value="0 0/20 * * * ?"></property>
+	</bean>
+
+
+	<!-- ======================== 调度工厂 ======================== -->
+	<bean id="SpringJobSchedulerFactoryBean"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="moneyInLogTime" />
+			</list>
+		</property>
+	</bean>
+
+</beans>

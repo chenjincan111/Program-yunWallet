@@ -100,7 +100,12 @@ body {
 				</c:forEach>
 			</table>
 		</div>
+		
 	</div>
+	   <div  class="span5" style="text-align: center;">
+			<a href="${path }/transactions?currentPage=${outlog.per }">上一页</a>|当前第${outlog.currentPage }页|共${outlog.allPage }页|<a
+				href="${path }/transactions?currentPage=${outlog.next }">下一页</a>
+		</div>
 
 
 

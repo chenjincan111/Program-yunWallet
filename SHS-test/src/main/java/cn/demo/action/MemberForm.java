@@ -163,9 +163,14 @@ public class MemberForm extends ActionSupport {
 		String view = "error";
 		Member member = (Member) ActionContext.getContext().getSession()
 				.get("LOGIN_USER");
-
+		if (userName == null && vcode == null)
+			return "none";
 		if (userName == "" && vcode == "")
 			return "none";
+		if(null == member ){
+			msg="没有账户";
+			return view;
+		}
 		if (!member.getVcode().equalsIgnoreCase(vcode)) {
 			msg = "验证失败，验证码错误！请查看你的邮箱！";
 			System.out.println(msg);
@@ -199,14 +204,7 @@ public class MemberForm extends ActionSupport {
 			msg = "登陆失败，用户名或密码不正确！";
 			System.out.println(msg);
 			return view;
-		} else {
-
-			if (!member.getValidated()) {
-				msg = "登陆失败，该邮箱未被激活！！";
-				System.out.println(msg);
-				return view;
-			}
-		}
+		} 
 
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String key = "";
@@ -231,6 +229,11 @@ public class MemberForm extends ActionSupport {
 			return view;
 		}
 		ActionContext.getContext().getSession().put("LOGIN_USER", member);
+		if (!member.getValidated()) {
+			msg = "登陆失败，该邮箱未被激活！！";
+			System.out.println(msg);
+			return view;
+		}
 		view = "success";
 		msg = "登陆成功！！";
 		System.out.println(msg);
@@ -246,12 +249,6 @@ public class MemberForm extends ActionSupport {
 		return "success";
 	}
 
-	// @RequestMapping(value = "/logout", method = RequestMethod.GET)
-	// public ModelAndView logout(HttpServletRequest request) {
-	// request.getSession().removeAttribute("LOGIN_USER");
-	// return new ModelAndView("redirect:/login.jsp");
-	// }
-	//
 	// @RequestMapping(value="/addresswho.json")
 	// @ResponseBody
 	// public Map<String,String> whoSaddress(@RequestParam String address){

@@ -60,13 +60,13 @@ body {
 			<div class="page-header">
 				<h3>Wallet Address List</h3>
 				<small>
-					<input id="id_text" name="chAddress" style="color:#C0C0C0" type="text" value="输入Address的模糊查询" onclick="textChange1()" onblur="textChange2()" />
-					<select name="isLocked">
-						<option value="all" selected="selected">All</option>
-						<option value="true">true</option>	
-						<option value="false">false</option>		
+					<input id="id_text" name="findW" style="color:#C0C0C0" type="text" value="input the address name" onclick="textChange1()" onblur="textChange2()" />
+					<select id="id_sel" name="isLocked">
+						<option value="2" selected="selected">All</option>
+						<option value="1">true</option>	
+						<option value="0">false</option>		
 					</select>
-					<input style="vertical-align: top" type="button" value="search" />
+					<input style="vertical-align: top" type="button" value="search" onclick="searchW()" />
 				</small>
 			</div>
 			<table class="table table-striped" style="margin-top: -35px">
@@ -131,7 +131,7 @@ body {
 		}
 		function textChange2(){
 			if(document.getElementById("id_text").value=="")
-			    document.getElementById("id_text").value="输入Address的模糊查询";
+			    document.getElementById("id_text").value="input the address name";
 		}
 		
 		function change(num){
@@ -150,6 +150,13 @@ body {
 				var amount = document.getElementById("amount").value;
 				window.location.reload("/SHS-test/update?amount="+amount+"&locked="+locked+"&address="+address);
 			}
+		}
+		
+		function searchW(){
+			var fw = document.getElementById("id_text").value;
+			var il = document.getElementById("id_sel").value; 
+			window.location.reload("/SHS-test/walletFind?findW="+fw+"&isLocked="+il);
+			//window.location.reload("/SHS-test/update?amount="+amount);
 		}
 	
 	</script>

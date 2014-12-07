@@ -41,6 +41,17 @@ public class PageRequest<T extends Serializable> {
 		this.max = max;
 		this.offset = (currentPage - 1) * max;
 	}
+	
+	
+
+	public PageRequest(int currentPage, int max, String hql) {
+		super();
+		this.offset = (currentPage - 1) * max;
+		this.max = max;
+		this.hql = hql;
+	}
+
+
 
 	public int getOffset() {
 		return offset;

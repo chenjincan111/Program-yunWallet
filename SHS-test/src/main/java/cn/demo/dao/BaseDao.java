@@ -196,13 +196,13 @@ public class BaseDao<T, PK extends Serializable> {
 		return lst;
 	}
 	
-//	@SuppressWarnings("unchecked")
-//	public List<T> find1(String hql) {
-//		
-//		List<T> lst = hibernateTemplate.find(hql);
-//
-//		return lst;
-//	}
+	@SuppressWarnings("unchecked")
+	public List<T> find1(String hql) {
+		
+		List<T> lst = hibernateTemplate.find(hql);
+
+		return lst;
+	}
 
 	@SuppressWarnings("unchecked")
 	public List<T> find(final String hql, final int offset,final int max) {

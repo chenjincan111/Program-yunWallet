@@ -21,7 +21,7 @@
           <li><a href="#">Stats</a></li>
           <li><a href="#">API</a></li>
           <li><a href="${path }/wallet">Wallet</a></li>
-          <li><a href="${path }/mechine">矿机</a></li>
+          <li><a href="${path }/getBitPrice">比特币价格抓取</a></li>
         </ul>
       </div><!--/.nav-collapse -->
     </div>

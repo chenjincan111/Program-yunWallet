@@ -25,7 +25,9 @@ import cn.demo.common.PageRequest;
 import cn.demo.common.PageResult;
 import cn.demo.model.Member;
 import cn.demo.model.Wallet;
+import cn.demo.model.WalletLogOut;
 import cn.demo.service.MemberService;
+import cn.demo.service.WalletLogService;
 import cn.demo.service.WalletService;
 
 @Controller
@@ -45,10 +47,28 @@ public class WalletForm extends ActionSupport implements RequestAware{
 	private String toAddress;
 	private String msg;
 	private boolean locked;
+	private String findW;
+	private String isLocked;
 
-	// @Autowired
-	// private WalletLogService walletLogService;
+	@Autowired
+	 private WalletLogService walletLogService;
 
+	 public String getIsLocked() {
+		return isLocked;
+	}
+
+	public void setIsLocked(String isLocked) {
+		this.isLocked = isLocked;
+	}
+
+	public String getFindW() {
+		return findW;
+	 }
+
+	public void setFindW(String findW) {
+		this.findW = findW;
+	}
+	
 	public boolean isLocked() {
 		return locked;
 	}
@@ -109,9 +129,34 @@ public class WalletForm extends ActionSupport implements RequestAware{
 			return view;
 		}
 		Member loginUser = (Member) object;
+		if(!loginUser.getValidated())
+			return view;
 		Wallet search = new Wallet();
 		search.setMemId(loginUser.getmId());
 		PageResult<Wallet> result = walletService.pageResault(search,currentPage);
+		
+		System.out.println(result.getCurrentList());
+		map.put("result", result);
+
+		return "success";
+	}
+	
+	/*
+	 * 模糊查询
+	 */
+	@Action(value = "/walletFind", results = {
+			@Result(name = "success", location = "/WEB-INF/jsp/wallet.jsp"),
+			@Result(name = "error", location = "/login.jsp") })
+	public String walletFindPage() {
+		Object object = ActionContext.getContext().getSession().get("LOGIN_USER");
+		String view = "error";
+		if (null == object) {
+			return view;
+		}
+		Member loginUser = (Member) object;
+		Wallet search = new Wallet();
+		search.setMemId(loginUser.getmId());
+		PageResult<Wallet> result = walletService.pageResault1(search,currentPage, findW ,isLocked);
 		
 		System.out.println(result.getCurrentList());
 		map.put("result", result);
@@ -210,7 +255,7 @@ public class WalletForm extends ActionSupport implements RequestAware{
 	 * 钱包付款
 	 */
 	@Action(value = "payto", results = {
-			@Result(name = "success", location = "/wallet"),
+			@Result(name = "success", location = "/wallet",type="redirect"),
 			@Result(name = "none", location = "/login.jsp"),
 			@Result(name = "error", location = "/WEB-INF/jsp/error.jsp")})
 	public String payto(){
@@ -250,10 +295,15 @@ public class WalletForm extends ActionSupport implements RequestAware{
 			System.out.println(msg);
 			return view;
 		}
-
-//		log.setMemId(loginUser.getmId());
-//		log.setGenTime(new Date());
-//		walletLogService.outLog(log);
+		
+		WalletLogOut log = new WalletLogOut();
+		
+		log.setMemId(loginUser.getmId());
+		log.setGenTime(new Date());
+		log.setAddress(address);
+		log.setToAddress(toAddress);
+		log.setAmount(amount);
+		walletLogService.outLog(log);
 //		view.addObject("user", loginUser);
 //		view.setViewName("/wallet/log/1");
 		

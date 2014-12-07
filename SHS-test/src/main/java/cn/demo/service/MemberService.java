@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import cn.demo.dao.MemberDao;
 import cn.demo.model.Member;
+import cn.demo.model.Wallet;
+import cn.demo.model.WalletLogIn;
+import cn.demo.model.WalletLogOut;
 import cn.demo.util.MailUtils;
 import cn.demo.util.Md5Utils;
 import cn.demo.util.VCodeUtils;
@@ -16,7 +19,7 @@ import cn.demo.util.VCodeUtils;
 @Service
 public class MemberService {
 
-//	private static Logger logger = Logger.getLogger(MemberService.class);
+	private static Logger logger = Logger.getLogger(MemberService.class);
 	@Autowired
 	private MemberDao memberDao;
 	@Autowired
@@ -37,7 +40,7 @@ public class MemberService {
 		m.setPassWord(Md5Utils.md5(pwd));
 		m.setVcode(vCode);
 		memberDao.save(m);
-		//logger.info("新注册用户：" + email);
+		logger.info("新注册用户：" + email);
 		return vCode;
 	}
 	
@@ -81,8 +84,40 @@ public class MemberService {
 
 		mailUtils.sendMailUtis(email, subject, text.toString());
 
-//		logger.info("发送验证码" + vCode + "到新用户邮箱：" + email);
+		logger.info("发送验证码" + vCode + "到新用户邮箱：" + email);
 	}
+	
+	
+	/**
+	 * 发送转出邮件
+	 * 
+	 */
+	public void sendAmountOutMail(Wallet wallet,WalletLogOut outLog) {
+		String subject = "云币钱包转账信息";
+		StringBuffer text = new StringBuffer("");
+		text.append("<p><h2>您的钱包地址为"+wallet.getAddressId()+"的账户</br>于"+outLog.getGenTime()
+				+"完成一笔转出交易，金额为"+outLog.getAmount()+",</br>余额"+wallet.getAmount()+"</h2></p>");
+		Member member = memberDao.get(wallet.getMemId());
+		mailUtils.sendMailUtis(member.getEmail(), subject, text.toString());
+
+		logger.info("发送钱包转出邮成功！");
+	}
+	
+	/**
+	 * 发送转入邮件
+	 * 
+	 */
+	public void sendAmountInMail(Wallet wallet,WalletLogIn inLog) {
+		String subject = "云币钱包转账信息";
+		StringBuffer text = new StringBuffer("");
+		text.append("<p><h2>您的钱包地址为"+wallet.getAddressId()+"的账户</br>于"+inLog.getGenTime()
+				+"完成一笔转入交易，金额为"+inLog.getAmount()+",</br>余额"+wallet.getAmount()+"</h2></p>");
+		Member member = memberDao.get(wallet.getMemId());
+		mailUtils.sendMailUtis(member.getEmail(), subject, text.toString());
+
+		logger.info("发送钱包转入邮成功！");
+	}
+	
 
 	/**
 	 * 登陆

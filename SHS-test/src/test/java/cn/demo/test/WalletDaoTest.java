@@ -37,11 +37,12 @@ public class WalletDaoTest {
 		walletDao.save(wallet);
 	}
 	
-//	@Test
-//	public void testFind() {
-//		String v = "dde";
-//		List l = walletDao.find1("SELECT * FROM Wallet  WHERE addressId LIKE  '%"+ v +"%'");
-//		System.out.println(l);
-//	}
+	@Test
+	public void testFind() {
+		String v = "69";
+		String x="0";
+		List l = walletDao.find1("FROM Wallet  WHERE addressId LIKE  '%"+ v +"%' and locked = "+x);
+		System.out.println(l);
+	}
 
 }
