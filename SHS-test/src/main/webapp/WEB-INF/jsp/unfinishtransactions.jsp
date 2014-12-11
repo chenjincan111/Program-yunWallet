@@ -57,59 +57,30 @@ body {
 
 	<div class="container" style="margin-top: 10px;">
 		<div class="span5">
-			<div class="page-header">
-				<h3>Transactions List</h3>
-				<c:if test="${countFinish!=0}">
-					<h2>有 <a href="${path }/unfinishTransactions"><span style="color: red">${countFinish}</span></a> 条交易正在处理中！请稍后...</h2>
-				</c:if>
-				<small>钱包汇出记录:</small>
+			<h3>Transactions unfinished List</h3>
+			<small>钱包交易进行中列表:</small>
 			</div>
 			<table class="table table-striped" style="margin-top: -35px">
 				<tr>
 					<th>To Address</th>
 					<th>Time</th>
 					<th>Amount</th>
+					<th>finish</th>
 				</tr>
-				<c:forEach var="obj" items="${outlog.currentList}">
+				<c:forEach var="obj" items="${unfinishList}">
 					<tr>
 						<td><c:out value="${obj.toAddress }"></c:out></a></td>
 						<td><c:out value="${obj.genTime }"></c:out></td>
 						<td><button class="btn btn-success cb">
 							<span data-c="9048255"><c:out value="${obj.amount }"></c:out> Ybi</span>
 						</button></td>
-					</tr>
-				</c:forEach>
-			</table>
-		</div>
-		<div class="span5">
-			<div class="page-header">
-				<h3>Transactions List</h3>
-				<small>钱包汇入记录:</small>
-			</div>
-			<table class="table table-striped" style="margin-top: -35px">
-				<tr>
-					<th>From Address</th>
-					<th>Time</th>
-					<th>Amount</th>
-				</tr>
-				<c:forEach var="obj" items="${inlog.currentList}">
-					<tr>
-						<td><c:out value="${obj.fromAddress }"></c:out></a></td>
-						<td><c:out value="${obj.genTime }"></c:out></td>
-						<td><button class="btn btn-success cb">
-							<span data-c="9048255"><c:out value="${obj.amount }"></c:out> Ybi</span>
-						</button></td>
+						<td>交易中</td>
 					</tr>
 				</c:forEach>
 			</table>
 		</div>
 		
-	</div>
-	   <div  class="span5" style="text-align: center;">
-			<a href="${path }/transactions?currentPage=0">首页</a> | <a href="${path }/transactions?currentPage=${outlog.per }">上一页</a>|当前第${outlog.currentPage }页|共${outlog.allPage }页|<a
-				href="${path }/transactions?currentPage=${outlog.next }">下一页</a> | <a href="${path }/transactions?currentPage=${outlog.allPage }">尾页</a>
-				<input style="width: 17px" type="text" id="id_gpage" name="tpage" value="${result.currentPage }" />   <button style="vertical-align:top;" onclick="goPage()">Go</button>
-		</div>
+		
 
 
 

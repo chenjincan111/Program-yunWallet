@@ -149,7 +149,7 @@ body {
 					<div class="control-group">
 						<label class="control-label">回显信息:</label>
 						<div class="controls">
-							<input id="userName" name="userName" type="text" value=""
+							<input id="userName" name="userName" type="text" value="${LOGIN_USER.userName }"
 								readonly="readonly" />
 						</div>
 					</div>

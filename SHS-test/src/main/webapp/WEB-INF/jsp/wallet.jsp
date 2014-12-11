@@ -89,10 +89,10 @@ body {
 					</tr>
 					<tr id="id_tr2_${status.index}" style="display: none;">
 							
-							<td><input style="width:125px" id='address' type='input' name='address' value='${obj.addressId }' readonly=readonly></a></td>
-							<td><input style="width:125px" id='amount' type='input' name='amount' value='${obj.amount }'></td>
+							<td><input style="width:125px" id='address${status.index}' type='input' name='address' value='${obj.addressId }' readonly=readonly></a></td>
+							<td><input style="width:125px" id='amount${status.index}' type='input' name='amount' value='${obj.amount }'></td>
 							<!--  td><input style="width:125px" id='locked' type='input' name='locked' value='${obj.locked }'></td>-->
-							<td><select style="width:71px;height:24px;" id='locked' name='locked'>
+							<td><select style="width:71px;height:24px;" id='locked${status.index}' name='locked'>
 								<option value="true">true</option>
 								<option value="false">false</option>
 							</select></td>
@@ -104,8 +104,9 @@ body {
 			</table>
 
 			<div>
-				<a href="${path }/wallet?currentPage=${result.per }">上一页</a>|当前第${result.currentPage }页|共${result.allPage }页|<a
-					href="${path }/wallet?currentPage=${result.next }">下一页</a>
+				<a href="${path }/wallet?currentPage=0">首页</a> | <a href="${path }/wallet?currentPage=${result.per }">上一页</a> | 当前第${result.currentPage }页 | 共${result.allPage }页 | <a
+					href="${path }/wallet?currentPage=${result.next }">下一页</a>|<a href="${path }/wallet?currentPage=${result.allPage }">尾页</a>
+				<input style="width: 17px" type="text" id="id_gpage" name="tpage" value="${result.currentPage }" />   <button style="vertical-align:top;" onclick="goPage()">Go</button>
 			</div>
 		</div>
 		<div class="span5">
@@ -145,9 +146,10 @@ body {
 				document.getElementById(tr2).style.display="table-row";
 			}else{
 				
-				var address = document.getElementById("address").value;
-				var locked = document.getElementById("locked").value;
-				var amount = document.getElementById("amount").value;
+				var address = document.getElementById("address"+num).value;
+				var locked = document.getElementById("locked"+num).value;
+				var amount = document.getElementById("amount"+num).value;
+				//alert(address);
 				window.location.reload("/SHS-test/update?amount="+amount+"&locked="+locked+"&address="+address);
 			}
 		}
@@ -157,6 +159,11 @@ body {
 			var il = document.getElementById("id_sel").value; 
 			window.location.reload("/SHS-test/walletFind?findW="+fw+"&isLocked="+il);
 			//window.location.reload("/SHS-test/update?amount="+amount);
+		}
+		
+		function goPage(){
+			var gpage = document.getElementById("id_gpage").value;
+			window.location.reload("/SHS-test/wallet?currentPage="+gpage);
 		}
 	
 	</script>

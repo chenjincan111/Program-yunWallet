@@ -255,7 +255,7 @@ public class WalletForm extends ActionSupport implements RequestAware{
 	 * 钱包付款
 	 */
 	@Action(value = "payto", results = {
-			@Result(name = "success", location = "/wallet",type="redirect"),
+			@Result(name = "success", location = "/transactions",type="redirect"),
 			@Result(name = "none", location = "/login.jsp"),
 			@Result(name = "error", location = "/WEB-INF/jsp/error.jsp")})
 	public String payto(){

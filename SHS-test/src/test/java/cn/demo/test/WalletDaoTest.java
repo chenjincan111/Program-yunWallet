@@ -13,6 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import cn.demo.dao.WalletDao;
+import cn.demo.dao.WalletLogOutDao;
 import cn.demo.model.Wallet;
 import cn.demo.util.IDGenerator;
 
@@ -22,6 +23,8 @@ public class WalletDaoTest {
 
 	@Autowired
 	private WalletDao walletDao;
+	@Autowired
+	private WalletLogOutDao wlo;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -44,5 +47,15 @@ public class WalletDaoTest {
 		List l = walletDao.find1("FROM Wallet  WHERE addressId LIKE  '%"+ v +"%' and locked = "+x);
 		System.out.println(l);
 	}
+	
+	@Test
+	public void testCount() {
+		Integer c = wlo.getCount("from WalletLogOut where finish = 0");
+		List l = wlo.find1("from WalletLogOut where finish = 0");
+		
+		System.out.println(l);
+	}
+	
+	
 
 }

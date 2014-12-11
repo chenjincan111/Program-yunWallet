@@ -81,10 +81,14 @@ body {
 					</div>
 					<div class="form-actions">
 						<button id="smt" class="btn btn-primary" id="login-continue">账户验证</button>
+						
 					</div>
 				</form>
 			</div>
 		</div>
+		<small> 找不到验证码？</small>
+		<br/> <small>点击发送验证码到邮箱！</small></br>
+			<a href="${path}/getVcode"><button class="btn btn-primary" id="login-continue" style="display: inline-block;">获取验证码</button></a>
 	</div>
 
 

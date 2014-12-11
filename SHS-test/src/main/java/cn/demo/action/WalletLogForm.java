@@ -1,6 +1,7 @@
 package cn.demo.action;
 
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.struts2.convention.annotation.Action;
@@ -62,9 +63,27 @@ public class WalletLogForm  extends ActionSupport  implements RequestAware{
 		PageResult<WalletLogIn> logInPage = logService.logInPageResult(
 				logInSeach, currentPage);
 		System.out.println(logInPage.getCurrentList());
-		
+		int count = logService.getCount();
+		List unfinishList = logService.getUnfinish();
+		map.put("unfinishList", unfinishList);
+		map.put("countFinish", count);
 		map.put("outlog", logOutPage);
 		map.put("inlog", logInPage);
+		return "success";
+	}
+	
+	@Action(value = "/unfinishTransactions", results = {
+			@Result(name = "success", location = "/WEB-INF/jsp/unfinishtransactions.jsp"),
+			@Result(name = "error", location = "/login.jsp") })
+	public String unfinishTransactions() {
+		
+		Object object = ActionContext.getContext().getSession().get("LOGIN_USER");
+		String view = "error";
+		if (null == object) {
+			return view;
+		}
+		List unfinishList = logService.getUnfinish();
+		map.put("unfinishList", unfinishList);
 		return "success";
 	}
 

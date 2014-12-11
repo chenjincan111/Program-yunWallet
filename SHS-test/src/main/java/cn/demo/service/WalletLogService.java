@@ -51,7 +51,7 @@ public class WalletLogService {
 	/**
 	 * 批量做汇入
 	 */
-	@Scheduled(fixedDelay = 10000)
+	@Scheduled(fixedDelay = 120000)
 	public void inLog() {
 		List<WalletLogOut> outLogs = logOutDao.find(
 				"from WalletLogOut where finish = ?", false);
@@ -138,6 +138,13 @@ public class WalletLogService {
 		PageResult<WalletLogOut> result = new PageResult<WalletLogOut>(list,
 				allPage, currentPage, request.getMax());
 		return result;
+	}
+	
+	public int getCount(){
+		return logOutDao.getCount("from WalletLogOut where finish = 0");
+	}
+	public List getUnfinish(){
+		return logOutDao.find1("from WalletLogOut where finish = 0");
 	}
 
 	/**

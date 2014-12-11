@@ -150,6 +150,29 @@ public class MemberForm extends ActionSupport {
 
 		return view;
 	}
+	
+	/*
+	 * 注册完成后修改username发送邮件获取验证码
+	 */
+	@Action(value = "getVcode", results = {
+			@Result(name = "success", location = "/WEB-INF/jsp/success.jsp"),
+			@Result(name = "error", location = "/WEB-INF/jsp/error.jsp") })
+	public String getVcode1() {
+
+		Object object = ActionContext.getContext().getSession().get("LOGIN_USER");
+		String view = "error";
+		System.out.println(object);
+		if (null == object) {
+			msg = "请先登录";
+			return view;
+		}
+		Member member = (Member) object;
+		
+		msg = "验证码已成功发送到您的邮箱！";
+		memberService.sendVcodeMail(member.getEmail(), member.getVcode());
+		view = "success";
+		return view;
+	}
 
 	/*
 	 * 邮箱激活
