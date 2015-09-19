@@ -147,13 +147,6 @@ body {
 						</div>
 					</div>
 					<div class="control-group">
-						<label class="control-label">回显信息:</label>
-						<div class="controls">
-							<input id="userName" name="userName" type="text" value="${LOGIN_USER.userName }"
-								readonly="readonly" />
-						</div>
-					</div>
-					<div class="control-group">
 						<label class="control-label">转账金额:</label>
 						<div class="controls">
 							<input id="amount" name="amount" type="text" value="" />

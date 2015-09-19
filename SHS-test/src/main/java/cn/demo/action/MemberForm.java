@@ -211,6 +211,10 @@ public class MemberForm extends ActionSupport {
 	}
 
 
+	/**
+	 * 登录
+	 * @return
+	 */
 	@Action(value = "login", results = {
 			@Result(name = "success", location = "/wallet",type="redirectAction"),
 			@Result(name = "error", location = "/WEB-INF/jsp/error.jsp") })

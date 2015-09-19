@@ -51,7 +51,7 @@ public class WalletLogService {
 	/**
 	 * 批量做汇入
 	 */
-	@Scheduled(fixedDelay = 120000)
+	@Scheduled(fixedDelay = 10000)
 	public void inLog() {
 		List<WalletLogOut> outLogs = logOutDao.find(
 				"from WalletLogOut where finish = ?", false);
