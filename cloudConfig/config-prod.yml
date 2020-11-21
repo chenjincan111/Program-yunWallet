@@ -1,0 +1,19 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          #配置git仓库地址
+          uri: https://github.com/chenjincan111/file/
+          #配置仓库路径
+          search-paths: cloudConfig
+          #访问git仓库的用户名
+          username: chenjincan111
+          #访问git仓库的用户名
+          password: cjc20531025
+      #配置仓库的分支
+      label: main
